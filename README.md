@@ -9,7 +9,7 @@ For this tutorial we will generate structure of the 3GB1 protein using the seque
 ```
 curl -o 3gb1.fasta https://www.rcsb.org/fasta/entry/3GB1
 ```
-Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLeap.x](makeLeap.x) to make the Leap input file ([leap.in](leap.in)) using the [3gb1.fasta](3gb1.fasta) file we downloaded before.
+Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLeap.x](1_system_setup/makeLeap.x) to make the Leap input file ([leap.in](1_system_setup/leap.in)) using the [3gb1.fasta](1_system_setup/3gb1.fasta) file we downloaded before.
 
 * makeLeap.x
 
@@ -51,7 +51,7 @@ done
 
 # Create the leap.in file
 cat > leap.in << EOF
-source leaprc.ff99SB
+source leaprc.protein.ff19SB
 set default PBradii mbondi2
 pro = sequence { ACE$three_letter_seq NHE }
 saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
@@ -67,7 +67,7 @@ chmod +x makeLeap.x
 ```
 This will create leap.in:
 ```
-source leaprc.ff99SB
+source leaprc.protein.ff19SB
 set default PBradii mbondi2
 pro = sequence { ACE MET THR TYR LYS LEU ILE LEU ASN GLY LYS THR LEU LYS GLY GLU THR THR THR GLU ALA VAL ASP ALA ALA THR ALA GLU LYS VAL PHE LYS GLN TYR ALA ASN ASP ASN GLY VAL ASP GLY GLU TRP THR TYR ASP ASP ALA THR LYS THR PHE THR VAL THR GLU NHE }
 saveamberparm pro 3gb1.prmtop 3gb1.inpcrd

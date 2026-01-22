@@ -36,7 +36,7 @@ done
 
 # Create the leap.in file
 cat > leap.in << EOF
-source leaprc.ff99SB
+source leaprc.protein.ff19SB
 set default PBradii mbondi2
 pro = sequence { ACE$three_letter_seq NHE }
 saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
