@@ -13,8 +13,53 @@ Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefi
 
 * [makeLeap.x](1_system_setup/makeLeap.x)
 
-{{< include file="1_system_setup/makeLeap.x" language="bash" >}}
+```
+#!/bin/bash
 
+sequence=$(grep -v "^>" 3gb1.fasta | tr -d '\n')
+convert_aa() {
+    case $1 in
+        A) echo "ALA" ;;
+        C) echo "CYS" ;;
+        D) echo "ASP" ;;
+        E) echo "GLU" ;;
+        F) echo "PHE" ;;
+        G) echo "GLY" ;;
+        H) echo "HIS" ;;
+        I) echo "ILE" ;;
+        K) echo "LYS" ;;
+        L) echo "LEU" ;;
+        M) echo "MET" ;;
+        N) echo "ASN" ;;
+        P) echo "PRO" ;;
+        Q) echo "GLN" ;;
+        R) echo "ARG" ;;
+        S) echo "SER" ;;
+        T) echo "THR" ;;
+        V) echo "VAL" ;;
+        W) echo "TRP" ;;
+        Y) echo "TYR" ;;
+        *) echo "UNK" ;;
+    esac
+}
+
+three_letter_seq=""
+for (( i=0; i<${#sequence}; i++ )); do
+    aa="${sequence:$i:1}"
+    three_letter_seq="$three_letter_seq $(convert_aa $aa)"
+done
+
+# Create the leap.in file
+cat > leap.in << EOF
+source leaprc.protein.ff19SB
+set default PBradii mbondi2
+pro = sequence { ACE$three_letter_seq NHE }
+saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
+quit
+EOF
+
+echo "leap.in file created successfully!"
+```
 Execute this with following commands:
 ```
 chmod +x makeLeap.x
@@ -34,8 +79,16 @@ Check the leap output and log file for any errors.
 Now we can move on to minimization.<br>
 Here, out main goal is to use MELD to guid our protein to fold into it's native structure by imposing some restrains we already know. Therefore we do a simple minimization.
 * [min.in](1_system_setup/min.in)
-{{< include file="1_system_setup/min.in" language="bash" >}}
-
+{{< include file="1_system_setup/leap.in" language="bash" >}}
+```
+energy minimization
+ &cntrl
+  imin=1, maxcyc=1000, ncyc=500,
+  ntwr = 1000, ntpr = 100,
+  cut = 999.0, rgbmax = 999.0,
+  ntb = 0, igb = 5, saltcon = 0.0,
+ /
+ ```
  ```
  $AMBERHOME/bin/sander -O -i min.in -o min.out -p 3gb1.prmtop -c 3gb1.inpcrd -r min.rst 2> min.err
  ```
