@@ -9,7 +9,7 @@ For this tutorial we will generate structure of the 3GB1 protein using the seque
 ```
 curl -o 3gb1.fasta https://www.rcsb.org/fasta/entry/3GB1
 ```
-Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLead.x](makeLead.x) to make the Leap input file ([leap.in](leap.in)) using the [3gb1.fasta](3gb1.fasta) file we downloaded before.
+Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLeap.x](makeLeap.x) to make the Leap input file ([leap.in](leap.in)) using the [3gb1.fasta](3gb1.fasta) file we downloaded before.
 
 * makeLeap.x
 
