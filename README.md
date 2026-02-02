@@ -203,8 +203,77 @@ Now we need to create restraints for our system. Restraints help guide the prote
 
 You could create these restraints manually, but that would be tedious! Instead, we'll use a Python script that automatically generates them for us. The script [gen_restraints_prot.py](Helpers/gen_restraints_prot.py) needs three input files: your topology file (prmtop), your sequence file (fasta), and a secondary structure file [ss.dat](Helpers/ss.dat).
 
-The script creates two output files: an AMBER-compatible restraint file (restraints.rst) and a restraint index file [restraint_index.txt](Helpers/restraint_index.txt) that tracks the restraints -- collection & group .
+The script creates two output files: an AMBER-compatible restraint file (restraints.rst) and a restraint index file [restraint_index.txt](Helpers/restraint_index.txt) that tracks the restraints -- collection & group.<br> Now, lets look at this file:
 
-These restraints are organized into two collections: strand-pair restraints that keep beta-sheet structures together, and hydrophobic restraints that ensure hydrophobic residues interact appropriately. This combination helps the protein fold into its correct structure during the simulation.
+```
+2
+118,121
+1,1
+0.85,0.18
+ 1    1 SS      
+ 1    1 SS      
+ ⠇    ⠇ ⠇
+ 2  121 HP      
+ 2  121 HP      
 
+ ```
+Here, the 1st line indicates the number of restraint collections. the next line shows how many restraint groups each collection has -- in our case we have secondary structure (SS) restraints and hydrophobic restraints (HP), having 118 and 121 groups each. 3rd line is how many restraints should be active within a group (noice); in our case 1 restraint from all groups in 2 collections. The 4th line is also a very important MELD parameter which is the active percentage of each collection. In our tutorial we use 0.85 of SS restraints and 0.18 of HP restraints.
 
+Each line in the restraint file contains information about a single restraint, organized into columns:
+
+_Column 1_: Collection ID - identifies which restraint collection this belongs to<br>
+_Column 2_: Group ID - specifies the group within that collection<br>
+_Column 3_: Two-letter code - provides a human-readable identifier for the restraint type<br>
+
+Now we have created all the helper files for our next steps.
+
+## 4. Equlibration
+
+Before launching the full REMD simulation, we'll run a short equilibration for each replica at its assigned temperature. While `sander` can assign velocities automatically, pre-equilibrating each replica offers some important advantages. Starting all replicas from identical coordinates means they initially have the same energies, which can cause excessive exchange attempts early on and potentially distort your starting structure more than desired. By equilibrating each replica independently first, we ensure they start the REMD run in stable, temperature-appropriate conformations. This step also serves as a useful demonstration of how to run multiple independent (non-exchanging) MD simulations simultaneously.
+
+ For this exercise, we'll equilibrate each replica by running a 200 ps simulation (100,000 steps with a 2 fs timestep). During this equilibration, we'll gradually heat each replica to its target temperature using a Langevin thermostat (controlled by `ntt=3` and `gamma_ln=1.0`). 
+
+To MELD restraints during equilibration, we need to set `nmropt=1`, `meld=1` in the input file, which activates restraint reading, and specify `indxf=restraints_index.txt` to tell the program where to find the restraint definitions. Since all replicas use the same restraints, we only need one copy of this file—no need to duplicate it for each replica.
+Also specify the AMBER restraint file `DISANG=restraints.rst`
+
+Since our initial structure isn't properly folded yet, we might encounter large restraint energies early in the simulation. To prevent failures from these high energies, we can take advantage of AMBER's built-in restraint ramping feature. For the equilibration step, we'll reduce the strength of the enforced restraints, allowing the structure to gradually adapt without being forced too aggressively into the restrained conformations.
+
+We'll start by creating a template input file [equilibrate.mdin](2_equilibration/equilibrate.mdin). You'll notice two placeholder values in this file: `temp0=XXXXX` (for the target temperature) and `ig=RANDOM_NUMBER` (for the random seed). 
+
+```
+Equilibration
+ &cntrl
+   irest=0, ntx=1, 
+   nstlim=100000, dt=0.02,
+   irest=0, ntt=3, gamma_ln=1.0,
+   temp0=XXXXX, ig=RANDOM_NUMBER,
+   ntc=2, ntf=2, nscm=1000,
+   ntb=0, igb=5,
+   cut=999.0, rgbmax=999.0,
+   ntpr=500, ntwx=500, ntwr=100000,
+   nmropt=1, meld=1, indxf='restraints_index.txt'
+ /
+ &wt type='REST', istep1=0, istep2=100000, value1=0.0001, value2=0.001 /
+ &wt TYPE='END'
+ /
+DISANG=restraints.rst
+```
+
+Now use [gen_inputs.py](2_equilibration/gen_eq_inputs.py) script to automatically populate these values for each replica based on your temperature distribution.
+
+```
+chmod +x gen_eq_inputs.py 
+./gen_eq_inputs.py -i <template_file> -t <temperatures_file> -p <topology> -r <restart>
+```
+After this step you should have 30 AMBER MD input files (`equilibrate.mdin.001-030`) and [equilibrate.groupfile](2_equilibration/equilibrate.groupfile) with 30 lines:
+
+```
+-O -rem 0 -i equilibrate.mdin.001 -o equilibrate.mdout.001 -c ../1_system_setup/min.rst -r equilibrate.rst.001 -x equilibrate.mdcrd.001 -inf equilibrate.mdinfo.001 -p ../1_system_setup/3gb1.prmtop
+-O -rem 0 -i equilibrate.mdin.002 -o equilibrate.mdout.002 -c ../1_system_setup/min.rst -r equilibrate.rst.002 -x equilibrate.mdcrd.002 -inf equilibrate.mdinfo.002 -p ../1_system_setup/3gb1.prmtop
+    ⠇
+-O -rem 0 -i equilibrate.mdin.030 -o equilibrate.mdout.030 -c ../1_system_setup/min.rst -r equilibrate.rst.030 -x equilibrate.mdcrd.030 -inf equilibrate.mdinfo.030 -p ../1_system_setup/3gb1.prmtop
+```
+We can run this using single cpu per task with command:
+```
+mpirun -np 30 $AMBERHOME/exe/sander.MPI -ng 30 -groupfile equilibrate.groupfile
+```
