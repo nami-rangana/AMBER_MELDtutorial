@@ -275,5 +275,35 @@ After this step you should have 30 AMBER MD input files (`equilibrate.mdin.001-0
 ```
 We can run this using single cpu per task with command:
 ```
-mpirun -np 30 $AMBERHOME/exe/sander.MPI -ng 30 -groupfile equilibrate.groupfile
+mpirun -np 30 $AMBERHOME/bin/sander.MPI -ng 30 -groupfile equilibrate.groupfile
+```
+
+## 5. MELD + REMD
+
+This step is more similar to the previous step. We first create a template [remd.mdin](3_meld_remd/remd.mdin) file with similar parameters. Here we run each replica for 500 ns trying to perform exchanges every 50 ps.
+```
+Replica Exchange MELD
+ &cntrl
+   irest=0, ntx=1, 
+   nstlim=25000, dt=0.002,
+   irest=0, ntt=3, gamma_ln=1.0,
+   temp0=XXXXX, ig=RANDOM_NUMBER,
+   ntc=2, ntf=2, nscm=1000,
+   ntb=0, igb=5,
+   cut=999.0, rgbmax=999.0,
+   ntpr=500, ntwx=500, ntwr=100000,
+   nmropt=1, meld=1, indxf='restraints_index.txt',
+   numexchg=10000,
+ /
+ &wt type='REST', istep1=0, istep2=100000000, value1=0.001, value2=1.0 /
+ &wt TYPE='END'
+ /
+DISANG=restraints.rst
+```
+We can use [gen_md_inputs.py](3_meld_remd/gen_md_inputs.py) to generate all AMBER input files and  [remd.groupfile](3_meld_remd/remd.groupfile).
+
+Unlike the equilibration phase, the REMD simulation will now perform replica exchange attempts every `25,000` time steps. The simulation will continue until `10,000` exchange attempts have been completed. Since REMD simulations can be computationally intensive and time-consuming, we'll take advantage of GPU acceleration by using `pmemd.cuda.MPI` instead of the CPU-only `sander.MPI`, which will significantly speed up the calculation.
+
+```
+mpirun -np 30 $AMBERHOME/bin/pmemd.cuda.MPI -ng 30 -groupfile remd.groupfile
 ```
