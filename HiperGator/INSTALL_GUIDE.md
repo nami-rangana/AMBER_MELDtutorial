@@ -89,26 +89,4 @@ Now this will install Amber to `<amber_path>/pmemd24`. The installation will cre
 ```
 source <amber_path>/pmemd24/amber.sh
 ```
-<!--
-## 5. configure for L4 (Ada, sm_89) and reduce ptxas optimization using FindCUDA vars
 
-```
-cmake -S .. -B . \
-  -DCOMPILER=GNU \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/orange/alberto.perezant/AMBER-MELD/amber25 \
-  -DMPI=ON -DCUDA=ON -DOPENMP=ON -DDOWNLOAD_MINICONDA=ON -DINSTALL_TESTS=ON \
-  -DCUDA_ARCH_NAME=Manual -DCUDA_ARCH_BIN=89 -DCUDA_ARCH_PTX=89 \
-  -DCUDA_NVCC_FLAGS_RELEASE="-Xptxas=-O0 --maxrregcount=48"
-```
-##  6. build the CUDA target strictly serial
-This step makes it easy to troubleshoot
-
-```cmake --build . --target pmemd_cuda_SPFP -j1```
-
-## 7. build the rest
-```cmake --build . -j6```
-
-## 8. install
-```cmake --install .```
--->
