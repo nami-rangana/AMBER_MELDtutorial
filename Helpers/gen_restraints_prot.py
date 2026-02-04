@@ -314,7 +314,7 @@ Examples:
 Default values:
   gnum-ss: 1 (activate 1 restraint per SS group)
   gnum-hp: 1 (activate 1 restraint per HP group)
-  cfrac-ss: 0.85 (activate 85%% of group-active SS restraints)
+  cfrac-ss: 0.45 (activate 45%% of group-active SS restraints)
   cfrac-hp: (1.2 × num_HP_residues) / (num_HP_groups × gnum_hp)
         """
     )
@@ -330,8 +330,8 @@ Default values:
                         help="Number of restraints to activate per SS group (default: 1)")
     parser.add_argument('--gnum-hp', type=int, default=1,
                         help="Number of restraints to activate per HP group (default: 1)")
-    parser.add_argument('--cfrac-ss', type=float, default=0.85,
-                        help="Collection fraction for SS restraints (default: 0.85)")
+    parser.add_argument('--cfrac-ss', type=float, default=0.45,
+                        help="Collection fraction for SS restraints (default: 0.45)")
     parser.add_argument('--cfrac-hp', type=float, default=None,
                         help="Collection fraction for HP restraints (default: auto-calculated)")
     
