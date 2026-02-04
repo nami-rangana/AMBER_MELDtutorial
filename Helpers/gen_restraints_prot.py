@@ -314,7 +314,7 @@ Examples:
 Default values:
   gnum-ss: 1 (activate 1 restraint per SS group)
   gnum-hp: 1 (activate 1 restraint per HP group)
-  cfrac-ss: 0.85 (activate 85% of group-active SS restraints)
+  cfrac-ss: 0.85 (activate 85%% of group-active SS restraints)
   cfrac-hp: (1.2 × num_HP_residues) / (num_HP_groups × gnum_hp)
         """
     )
