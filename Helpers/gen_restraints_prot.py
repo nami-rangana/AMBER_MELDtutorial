@@ -282,7 +282,7 @@ def write_restraints(seq_file, rst_file, index_file, atom_names, starts, ends,
         for res_i, res_j, atom_i, atom_j, is_N_to_O, group_id in ss_restraints:
             fo.write(f" &rst\tiat = {atom_i}, {atom_j},\n")
             fo.write(f"\tr1 = {1.0:.3f}, r2 = {2.0:.3f}, r3 = {4.0:.3f}, r4 = {5.0:.3f},\n")
-            fo.write(f"\trk2 = {100.0:8.3f}, rk3 = {100.0:8.3f},\n\t/\n")
+            fo.write(f"\trk2 = {0.6:8.3f}, rk3 = {0.6:8.3f},\n\t/\n")
             if is_N_to_O:
                 fo.write("\n")
             fi.write(f"{1:2d} {group_id:4d} {'SS':8s}\n")
@@ -295,7 +295,7 @@ def write_restraints(seq_file, rst_file, index_file, atom_names, starts, ends,
             
             fo.write(f" &rst\tiat = {idx_i}, {idx_j},\n")
             fo.write(f"\tr1 = {1.0:.3f}, r2 = {2.0:.3f}, r3 = {4.0:.3f}, r4 = {5.0:.3f},\n")
-            fo.write(f"\trk2 = {100.0:8.3f}, rk3 = {100.0:8.3f},\n\t/\n")
+            fo.write(f"\trk2 = {0.6:8.3f}, rk3 = {0.6:8.3f},\n\t/\n")
             fi.write(f"{2:2d} {group_id:4d} {'HP':8s}\n")
             
             current_group = group_id
