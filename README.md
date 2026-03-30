@@ -104,9 +104,9 @@ To get started, you'll typically need to know how many atoms are in your system.
 head -n2 1uoa.inpcrd | tail -n1
 ```
 
-Now that we know our system has 861 atoms, we can figure out how many replicas to use and what temperatures to assign them. As a general rule of thumb, the number of replicas is usually related to the square root of the number of atoms, and temperatures are typically set up in a geometric progression (where each temperature is a constant multiple of the previous one).
+Now that we know our system has 144 atoms, we can figure out how many replicas to use and what temperatures to assign them. As a general rule of thumb, the number of replicas is usually related to the square root of the number of atoms, and temperatures are typically set up in a geometric progression (where each temperature is a constant multiple of the previous one).
 
-For this tutorial we choose to have 30 replicas between 270 K - 600 K scaled using geometric tempreature scaler in [temperature_scale.py](Helpers/temperature_scale.py).
+For this tutorial we choose to have 12 replicas between 270 K - 600 K scaled using geometric tempreature scaler in [temperature_scale.py](Helpers/temperature_scale.py).
 ```
 #!/usr/bin/env python3
 import sys
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 ```
 ```
 chmod +x temperature_scale.py
-./temperature_scale.py geometric 30 0.0 1.0 270.0 600.0
+./temperature_scale.py geometric 12 0.0 1.0 270.0 600.0
 ```
 Now you have scaled temperatures for each replica. This generates a file containing the temperature in Kelvin for each replica: [temperatures.dat](Helpers/temperatures.dat).
 
