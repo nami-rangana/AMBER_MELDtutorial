@@ -5,18 +5,18 @@ This repository has a tutorial on how to implement Replica Exchange MELD simulat
 
 In this section we will build the system via Leap and run minimization via Sander. Here a brief description of the system and the procedure used to generate the topology and coordinate files.
 
-For this tutorial we will generate structure of the 3GB1 protein using the sequence FASTA file. Use following command to download the sequence.
+For this tutorial we will generate structure of the 1UAO protein using the sequence FASTA file. Use following command to download the sequence.
 ```
-curl -o 3gb1.fasta https://www.rcsb.org/fasta/entry/3GB1
+curl -o 1uoa.fasta https://www.rcsb.org/fasta/entry/1UAO
 ```
-Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLeap.x](1_system_setup/makeLeap.x) to make the Leap input file ([leap.in](1_system_setup/leap.in)) using the [3gb1.fasta](1_system_setup/3gb1.fasta) file we downloaded before.
+Now lets bild the system to simulate using Leap. Here we will use ff19SB forcefield and mbondii2 radii that are appropriate for the igb=5 option in sander. We use [makeLeap.x](1_system_setup/makeLeap.x) to make the Leap input file ([leap.in](1_system_setup/leap.in)) using the [1uoa.fasta](1_system_setup/1uoa.fasta) file we downloaded before.
 
 * [makeLeap.x](1_system_setup/makeLeap.x)
 
 ```
 #!/bin/bash
 
-sequence=$(grep -v "^>" 3gb1.fasta | tr -d '\n')
+sequence=$(grep -v "^>" 1uoa.fasta | tr -d '\n')
 convert_aa() {
     case $1 in
         A) echo "ALA" ;;
@@ -54,7 +54,7 @@ cat > leap.in << EOF
 source leaprc.protein.ff19SB
 set default PBradii mbondi2
 pro = sequence { ACE$three_letter_seq NHE }
-saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
+saveamberparm pro 1uoa.prmtop 1uoa.inpcrd
 quit
 EOF
 
@@ -70,10 +70,10 @@ This will create leap.in:
 source leaprc.ff99SB
 set default PBradii mbondi2
 pro = sequence { ACE MET THR TYR LYS LEU ILE LEU ASN GLY LYS THR LEU LYS GLY GLU THR THR THR GLU ALA VAL ASP ALA ALA THR ALA GLU LYS VAL PHE LYS GLN TYR ALA ASN ASP ASN GLY VAL ASP GLY GLU TRP THR TYR ASP ASP ALA THR LYS THR PHE THR VAL THR GLU NHE }
-saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
+saveamberparm pro 1uoa.prmtop 1uoa.inpcrd
 quit
 ```
-Now we use this inputfile to generate topology ([3gb1.prmtop](1_system_setup/3gb1.prmtop)) and coordinate file ([3gb1.inpcrd](1_system_setup/3gb1.inpcrd)) with: ```tleap -f leap.in```<br>
+Now we use this inputfile to generate topology ([1uoa.prmtop](1_system_setup/1uoa.prmtop)) and coordinate file ([1uoa.inpcrd](1_system_setup/1uoa.inpcrd)) with: ```tleap -f leap.in```<br>
 Check the leap output and log file for any errors.
 
 
@@ -91,7 +91,7 @@ energy minimization
  /
  ```
  ```
- $AMBERHOME/bin/sander -O -i min.in -o min.out -p 3gb1.prmtop -c 3gb1.inpcrd -r min.rst 2> min.err
+ $AMBERHOME/bin/sander -O -i min.in -o min.out -p 1uoa.prmtop -c 1uoa.inpcrd -r min.rst 2> min.err
  ```
 ## 3. Other requirements
 ### Number of replicas & Temperature scaling
@@ -101,7 +101,7 @@ The key is making sure neighboring replicas have overlapping potential energy di
 
 To get started, you'll typically need to know how many atoms are in your system. This is easy to find – just look at your topology or coordinate files. In fact, the very first number in any coordinate file tells you exactly how many atoms you're working with! -- in our case 861 atoms"
 ```
-head -n2 3gb1.inpcrd | tail -n1
+head -n2 1uoa.inpcrd | tail -n1
 ```
 
 Now that we know our system has 861 atoms, we can figure out how many replicas to use and what temperatures to assign them. As a general rule of thumb, the number of replicas is usually related to the square root of the number of atoms, and temperatures are typically set up in a geometric progression (where each temperature is a constant multiple of the previous one).
@@ -268,10 +268,10 @@ chmod +x gen_eq_inputs.py
 After this step you should have 30 AMBER MD input files (`equilibrate.mdin.001-030`) and [equilibrate.groupfile](2_equilibration/equilibrate.groupfile) with 30 lines:
 
 ```
--O -rem 0 -i equilibrate.mdin.001 -o equilibrate.mdout.001 -c ../1_system_setup/min.rst -r equilibrate.rst.001 -x equilibrate.mdcrd.001 -inf equilibrate.mdinfo.001 -p ../1_system_setup/3gb1.prmtop
--O -rem 0 -i equilibrate.mdin.002 -o equilibrate.mdout.002 -c ../1_system_setup/min.rst -r equilibrate.rst.002 -x equilibrate.mdcrd.002 -inf equilibrate.mdinfo.002 -p ../1_system_setup/3gb1.prmtop
+-O -rem 0 -i equilibrate.mdin.001 -o equilibrate.mdout.001 -c ../1_system_setup/min.rst -r equilibrate.rst.001 -x equilibrate.mdcrd.001 -inf equilibrate.mdinfo.001 -p ../1_system_setup/1uoa.prmtop
+-O -rem 0 -i equilibrate.mdin.002 -o equilibrate.mdout.002 -c ../1_system_setup/min.rst -r equilibrate.rst.002 -x equilibrate.mdcrd.002 -inf equilibrate.mdinfo.002 -p ../1_system_setup/1uoa.prmtop
     ⠇
--O -rem 0 -i equilibrate.mdin.030 -o equilibrate.mdout.030 -c ../1_system_setup/min.rst -r equilibrate.rst.030 -x equilibrate.mdcrd.030 -inf equilibrate.mdinfo.030 -p ../1_system_setup/3gb1.prmtop
+-O -rem 0 -i equilibrate.mdin.030 -o equilibrate.mdout.030 -c ../1_system_setup/min.rst -r equilibrate.rst.030 -x equilibrate.mdcrd.030 -inf equilibrate.mdinfo.030 -p ../1_system_setup/1uoa.prmtop
 ```
 We can run this using single cpu per task with command:
 ```
