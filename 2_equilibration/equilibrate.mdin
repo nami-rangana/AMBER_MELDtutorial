@@ -1,7 +1,7 @@
-Equilibration 200ps
+Equilibration 500ps
  &cntrl
    irest=0, ntx=1, 
-   nstlim=100000, dt=0.002,
+   nstlim=250000, dt=0.002,
    irest=0, ntt=3, gamma_ln=1.0,
    temp0=XXXXX, ig=RANDOM_NUMBER,
    ntc=2, ntf=2, nscm=1000,
@@ -10,7 +10,7 @@ Equilibration 200ps
    ntpr=500, ntwx=500, ntwr=100000,
    nmropt=1, meld=1, indxf='restraints_index.txt'
  /
- &wt type='REST', istep1=0, istep2=100000, value1=0.0001, value2=0.001 /
+ &wt type='REST', istep1=0, istep2=200000, value1=0.001, value2=1.0 /
  &wt TYPE='END'
  /
 DISANG=restraints.rst
