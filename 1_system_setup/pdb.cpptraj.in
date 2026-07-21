@@ -1,0 +1,4 @@
+parm 3gb1.prmtop
+trajin min.rst 
+trajout min.pdb
+run

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sequence=$(grep -v "^>" 3gb1.fasta | tr -d '\n')
+sequence=$(grep -v "^>" 1uoa.fasta | tr -d '\n')
 
 convert_aa() {
     case $1 in
@@ -39,7 +39,7 @@ cat > leap.in << EOF
 source leaprc.protein.ff19SB
 set default PBradii mbondi2
 pro = sequence { ACE$three_letter_seq NHE }
-saveamberparm pro 3gb1.prmtop 3gb1.inpcrd
+saveamberparm pro 1uoa.prmtop 1uoa.inpcrd
 quit
 EOF
 
