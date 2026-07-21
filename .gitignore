@@ -1,2 +1,9 @@
 *.err
 *.log
+*.out
+
+*mdin.*
+*mdinfo.*
+*mdout.*
+*rst.*
+*mdcrd.*
