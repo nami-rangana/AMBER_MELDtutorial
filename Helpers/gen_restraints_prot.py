@@ -277,10 +277,10 @@ def write_restraints(seq_file, rst_file, index_file, atom_names,
             fo.write(f"\tr1 = {r1:.3f}, r2 = {r2:.3f}, r3 = {r3:.3f}, r4 = {r4:.3f},\n")
             fo.write(f"\trk2 = {k2:8.3f}, rk3 = {k3:8.3f},\n\t/\n")
 
-        # Header Line 1: Num collections
-        fi.write(f"{num_collections}\n")
+        # Header Line 1 & 2:PrintInfo=False(0), Num collections
+        fi.write(f"0\n{num_collections}\n")
         
-        # Header Line 2: Groups per collection
+        # Header Line 3: Groups per collection
         counts = []
         if 'SS' in collections: counts.append(str(ss_group_count))
         if 'HELIX' in collections: counts.append(str(helix_group_count))
