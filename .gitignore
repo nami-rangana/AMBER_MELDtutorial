@@ -3,7 +3,7 @@
 *.out
 
 *mdin.*
-*mdinfo.*
-*mdout.*
-*rst.*
-*mdcrd.*
+*rst*
+*mdinfo*
+*mdout*
+*mdcrd*
