@@ -9,7 +9,7 @@ Execute the following command on a HiPerGator login node to access a compute nod
 ## 2. load required modules:
 Now we need to load the following modules:
 <!-- lapack/3.11.0 cmake/3.30.5 -->
-```ml cuda/12.8.1 gcc/14.2.0 openmpi/5.0.7```
+```ml cuda/12.8.1 gcc/11.4.0 "12.2.0/openmpi"```
 
 ## 3. Extract downloaded setup files:
 Navigate to your installation directory and extract the source archives.
