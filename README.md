@@ -48,59 +48,59 @@ where $\ p(\mathbf{x}\mid D)\$ is the **posterior distribution**, $\ p(\mathbf{x
 
 The prior describes which conformations are physically plausible before the external structural information is considered. In MELD, this distribution is defined by the Amber potential energy:
 
-$$
+```math
 p(\mathbf{x})
 \propto
 \exp\!\left[-\beta E_{\mathrm{Amber}}(\mathbf{x})\right],
 \qquad
 \beta=\frac{1}{k_{\mathrm B}T}.
-$$
+```
 
 The force field provides the physical description of the protein, including bonded interactions, steric packing, electrostatics, and solvation. It therefore distinguishes physically realistic conformations from structures that may satisfy the data geometrically but contain unfavorable molecular interactions.
 
 ### The likelihood: agreement with the data
 
-The likelihood describes how compatible a conformation is with the available structural information. Individual observations are represented as nonnegative restraint energies involving geometrical quantities such as distances, angles, or torsions [1]. For an observation \(D_i\), the corresponding likelihood can be written as
+The likelihood describes how compatible a conformation is with the available structural information. Individual observations are represented as nonnegative restraint energies involving geometrical quantities such as distances, angles, or torsions. For an observation $\(D_i\)$, the corresponding likelihood can be written as
 
-$$
+```math
 p(D_i\mid\mathbf{x})
 \propto
 \exp\!\left[-\beta E_i^{\mathrm{rest}}(\mathbf{x})\right].
-$$
+```
 
-The restraint energy \(E_i^{\mathrm{rest}}\) is small when the conformation agrees with the observation and increases as the disagreement becomes larger.
+The restraint energy $\(E_i^{\mathrm{rest}}\)$ is small when the conformation agrees with the observation and increases as the disagreement becomes larger.
 
 Combining the physical prior and data likelihood gives the effective potential sampled during the simulation:
 
-$$
+```math
 E_{\mathrm{total}}(\mathbf{x})
 =
 E_{\mathrm{Amber}}(\mathbf{x})
 -
 \beta^{-1}\ln p(D\mid\mathbf{x}).
-$$
+```
 
-The force field and the data therefore play complementary roles. The restraints guide sampling toward regions that agree with the available information, while the physical model determines which conformations within those regions are energetically reasonable [1].
+The force field and the data therefore play complementary roles. The restraints guide sampling toward regions that agree with the available information, while the physical model determines which conformations within those regions are energetically reasonable.
 
-If every observation were assumed to be correct and independent, the likelihood term would reduce to a sum over all \(M\) restraint energies:
+If every observation were assumed to be correct and independent, the likelihood term would reduce to a sum over all $\(M\)$ restraint energies:
 
-$$
+```math
 E_{\mathrm{total}}(\mathbf{x})
 =
 E_{\mathrm{Amber}}(\mathbf{x})
 +
 \sum_{i=1}^{M}E_i^{\mathrm{rest}}(\mathbf{x}).
-$$
+```
 
-This is the usual restrained-molecular-dynamics model, in which every restraint is enforced simultaneously. MELD instead allows the data to be sparse, ambiguous, or uncertain and does not require every supplied restraint to be correct [1].
+This is the usual restrained-molecular-dynamics model, in which every restraint is enforced simultaneously. MELD instead allows the data to be sparse, ambiguous, or uncertain and does not require every supplied restraint to be correct.
 
 ### 2.1 Selecting a mutually compatible subset
 
-Suppose a dataset contains \(M=100\) predicted contacts and previous experience suggests that approximately \(N=65\) are reliable. The appropriate assumption is not that all 100 contacts are correct, but that **about 65 of them are correct, although their identities are unknown**.
+Suppose a dataset contains $\(M=100\)$ predicted contacts and previous experience suggests that approximately $\(N=65\)$ are reliable. The appropriate assumption is not that all 100 contacts are correct, but that **about 65 of them are correct, although their identities are unknown**.
 
 MELD represents this uncertainty by evaluating and ranking the restraint energies for the current conformation:
 
-$$
+```math
 E_{(1)}^{\mathrm{rest}}(\mathbf{x})
 \leq
 E_{(2)}^{\mathrm{rest}}(\mathbf{x})
@@ -108,20 +108,20 @@ E_{(2)}^{\mathrm{rest}}(\mathbf{x})
 \cdots
 \leq
 E_{(M)}^{\mathrm{rest}}(\mathbf{x}).
-$$
+```
 
-Only the \(N\) lowest-energy restraints are then included in the effective potential:
+Only the $\(N\)$ lowest-energy restraints are then included in the effective potential:
 
-$$
+```math
 E_{\mathrm{total}}(\mathbf{x})
 =
 E_{\mathrm{Amber}}(\mathbf{x})
 +
 \sum_{i=1}^{N}E_{(i)}^{\mathrm{rest}}(\mathbf{x}),
 \qquad N\leq M.
-$$
+```
 
-The remaining \(M-N\) restraints contribute neither energy nor force during that evaluation. This selection is dynamic: as the protein changes conformation, the restraint energies are recalculated and a different subset may become active.
+The remaining $\(M-N\)$ restraints contribute neither energy nor force during that evaluation. This selection is dynamic: as the protein changes conformation, the restraint energies are recalculated and a different subset may become active.
 
 The number of restraints treated as reliable must be chosen by the user. Setting this number too high may force the simulation to account for incorrect information, whereas setting it too low may discard useful structural information.
 
@@ -129,7 +129,7 @@ This treatment has three important consequences.
 
 #### Uncertain information can be tolerated
 
-Incorrect restraints are not identified permanently at the beginning of the simulation. Instead, MELD favors conformations that satisfy a large, mutually compatible subset of the data while remaining physically reasonable. Restraints that are inconsistent with low-free-energy structures are less likely to remain active. In this sense, MELD samples both the protein structure and compatible interpretations of the available data [1].
+Incorrect restraints are not identified permanently at the beginning of the simulation. Instead, MELD favors conformations that satisfy a large, mutually compatible subset of the data while remaining physically reasonable. Restraints that are inconsistent with low-free-energy structures are less likely to remain active. In this sense, MELD samples both the protein structure and compatible interpretations of the available data.
 
 #### Ambiguity can be represented explicitly
 
@@ -137,7 +137,7 @@ Consider a contact indicating that two side chains are close without specifying 
 
 #### Restraints guide rather than prescribe the structure
 
-MELD restraints commonly contain a broad, flat region in which the energetic penalty is zero or small [1]. Once a restraint is satisfied, the force field determines the detailed geometry. The data narrow the conformational search without replacing the underlying physical model.
+MELD restraints commonly contain a broad, flat region in which the energetic penalty is zero or small. Once a restraint is satisfied, the force field determines the detailed geometry. The data narrow the conformational search without replacing the underlying physical model.
 
 Because different conformations can activate different subsets of restraints, the resulting energy landscape may contain several competing funnels. MELD samples among these alternatives and favors the structural interpretations associated with the lowest free energy.
 
@@ -155,9 +155,9 @@ The hierarchy is evaluated in two stages.
 
 #### Selection within a group
 
-Suppose group \(g\) contains \(m_g\) restraints with ordered energies
+Suppose group $\(g\)$ contains $\(m_g\)$ restraints with ordered energies
 
-$$
+```math
 E_{g,(1)}
 \leq
 E_{g,(2)}
@@ -165,22 +165,22 @@ E_{g,(2)}
 \cdots
 \leq
 E_{g,(m_g)}.
-$$
+```
 
-If the group has `KEEP` \(k_g\), its energy is the sum of its \(k_g\) lowest-energy restraints:
+If the group has `KEEP` $\(k_g\)$, its energy is the sum of its $\(k_g\)$ lowest-energy restraints:
 
-$$
+```math
 E_g^{\mathrm{group}}(\mathbf{x})
 =
 \sum_{j=1}^{k_g}E_{g,(j)}^{\mathrm{rest}}(\mathbf{x}).
-$$
+```
 
 The `KEEP` setting therefore describes how much of the information within one structural claim must be satisfied:
 
 | Setting | Meaning |
 | :-- | :-- |
 | `KEEP 1` | Select the best-satisfied restraint in the group |
-| `KEEP n` | Select the \(n\) best-satisfied restraints |
+| `KEEP n` | Select the $\(n\)$ best-satisfied restraints |
 | `KEEP all` | Require every restraint in the group to contribute |
 
 For example, an ambiguous contact between two side chains may be represented by many possible atom-pair distances placed in a single group with `KEEP 1`. The structural claim is that the two residues are in contact—not that every atom in one side chain must contact every atom in the other.
@@ -191,7 +191,7 @@ By contrast, several distances may be required together to define a particular �
 
 A collection contains groups representing comparable structural claims. After the energy of each group has been calculated, MELD ranks the groups within the collection:
 
-$$
+```math
 E_{(1)}^{\mathrm{group}}
 \leq
 E_{(2)}^{\mathrm{group}}
@@ -199,44 +199,44 @@ E_{(2)}^{\mathrm{group}}
 \cdots
 \leq
 E_{(G)}^{\mathrm{group}}.
-$$
+```
 
-If the collection specifies `ACTIVE` \(A\), only the \(A\) lowest-energy groups contribute:
+If the collection specifies `ACTIVE` $\(A\)$, only the $\(A\)$ lowest-energy groups contribute:
 
-$$
+```math
 E^{\mathrm{collection}}(\mathbf{x})
 =
 \sum_{g=1}^{A}E_{(g)}^{\mathrm{group}}(\mathbf{x}),
 \qquad A\leq G.
-$$
+```
 
 The remaining groups are inactive during that force evaluation. Thus, `ACTIVE` expresses how many group-level claims are expected to be compatible with the structure, while `KEEP` expresses how much of each selected claim must be satisfied.
 
 The complete hierarchy can be summarized as
 
-$$
+```math
 \text{collection}
 \;\xrightarrow{\;\texttt{ACTIVE}\;}
 \text{selected groups}
 \;\xrightarrow{\;\texttt{KEEP}\;}
 \text{selected restraints}.
-$$
+```
 
 For example, a collection containing 121 groups might select 21:
 
-$$
+```math
 121\ \text{groups}
 \;\xrightarrow{\;\texttt{ACTIVE}\ 21\;}
 21\ \text{active groups}.
-$$
+```
 
 Within each selected group, one restraint might be chosen from 88 alternative distances:
 
-$$
+```math
 88\ \text{alternative distances}
 \;\xrightarrow{\;\texttt{KEEP}\ 1\;}
 1\ \text{active distance}.
-$$
+```
 
 The scientific meaning of the hierarchy can therefore be summarized as follows:
 
@@ -264,39 +264,39 @@ To improve sampling, MELD uses **Hamiltonian and temperature replica-exchange mo
 
 ### 3.1 The replica ladder
 
-A dimensionless parameter, \(\alpha\), identifies each position along the ladder. For replica \(n\) in a ladder containing \(N\) replicas,
+A dimensionless parameter, $\(\alpha\)$, identifies each position along the ladder. For replica $\(n\)$ in a ladder containing $\(N\)$ replicas,
 
-$$
+```math
 \alpha_n = \frac{n-1}{N-1},
 \qquad n=1,\ldots,N.
-$$
+```
 
 The two ends of the ladder are therefore
 
-$$
+```math
 \alpha_1=0
 \qquad\text{and}\qquad
 \alpha_N=1.
-$$
+```
 
-Temperature and restraint strength are defined as functions of \(\alpha\):
+Temperature and restraint strength are defined as functions of $\(\alpha\)$:
 
-$$
+```math
 T_n=T(\alpha_n),
-$$
+```
 
-$$
+```math
 k_n=s(\alpha_n)\,k_0,
-$$
+```
 
-where \(k_0\) is the base force constant and \(s(\alpha)\) is a scaling function applied along the ladder.
+where $\(k_0\)$ is the base force constant and $\(s(\alpha)\)$ is a scaling function applied along the ladder.
 
 | Ladder position | Temperature | Restraint strength | Main role |
 | :-- | :-- | :-- | :-- |
-| \(\alpha=0\), the lowest replica | Typically near 300 K | Full or nearly full strength | Samples physically realistic, data-compatible conformations |
-| \(\alpha=1\), the highest replica | Higher temperature | Weak or nearly absent | Crosses barriers and explores alternative conformations |
+| $\(\alpha=0\)$, the lowest replica | Typically near 300 K | Full or nearly full strength | Samples physically realistic, data-compatible conformations |
+| $\(\alpha=1\)$, the highest replica | Higher temperature | Weak or nearly absent | Crosses barriers and explores alternative conformations |
 
-The exact temperature range and scaling profile are modeling choices rather than universal MELD constants. In the original applications, MELD used between 24 and 48 replicas, with exchange attempts every 20 or 50 ps. Some calculations increased the temperature from 300 to 450 K while reducing nonlocal distance-restraint strength toward the upper part of the ladder [1]. A particular tutorial may use a different upper temperature, replica count, or exchange interval.
+The exact temperature range and scaling profile are modeling choices rather than universal MELD constants. In the original applications, MELD used between 24 and 48 replicas, with exchange attempts every 20 or 50 ps. Some calculations increased the temperature from 300 to 450 K while reducing nonlocal distance-restraint strength toward the upper part of the ladder. A particular tutorial may use a different upper temperature, replica count, or exchange interval.
 
 ### 3.2 Exchange between replicas
 
@@ -317,13 +317,13 @@ Three controls are commonly used to define how the simulation changes across the
 
 | Control | Purpose |
 | :-- | :-- |
-| `TSCALE` | Defines the temperature as a function of \(\alpha\) |
-| `SCALER` | Defines how restraint strength changes with \(\alpha\) |
+| `TSCALE` | Defines the temperature as a function of $\(\alpha\)$ |
+| `SCALER` | Defines how restraint strength changes with $\(\alpha\)$ |
 | `RAMP` | Defines how restraint strength changes with simulation time |
 
 A geometric temperature schedule provides a smooth increase from the lower to the upper replicas. A restraint scaler can preserve full restraint strength near the bottom of the ladder and progressively weaken it toward the top.
 
-Local and nonlocal information do not always need the same scaling behavior. Secondary-structure restraints describe local backbone geometry and may remain active throughout the ladder. By contrast, nonlocal distance restraints can strongly restrict the global fold and are often weakened in the upper replicas. This allows the protein to escape an incorrect topology before returning to the strongly restrained region. The original MELD study used this distinction in several applications: secondary-structure restraints remained at full strength, while imposed distance restraints weakened toward the upper replicas [1].
+Local and nonlocal information do not always need the same scaling behavior. Secondary-structure restraints describe local backbone geometry and may remain active throughout the ladder. By contrast, nonlocal distance restraints can strongly restrict the global fold and are often weakened in the upper replicas. This allows the protein to escape an incorrect topology before returning to the strongly restrained region. The original MELD study used this distinction in several applications: secondary-structure restraints remained at full strength, while imposed distance restraints weakened toward the upper replicas.
 
 A time-dependent `RAMP` serves a different purpose. Rather than varying restraint strength between replicas, it introduces the restraints gradually during the initial part of the simulation. This is particularly helpful when all replicas begin from an extended chain. Applying strong nonlocal restraints immediately could produce abrupt collapse, poor local geometry, or large initial forces. A gradual ramp allows the system to relax while the data-derived potential is introduced.
 
@@ -335,7 +335,7 @@ This distinction is important:
 
 > The lowest-replica ensemble represents the force field **conditioned on the supplied information**. It is not the unbiased ensemble of the force field alone.
 
-MELD is therefore intended to produce an ensemble rather than simply generate a single structure. Relative populations can provide information about the stability of competing conformational states, provided that sampling is sufficiently converged. In practice, low-free-energy regions are commonly identified by clustering the sampled conformations. The original MELD work emphasized that individual potential-energy values should not be used directly as free-energy scores because they do not include the entropic contribution [1].
+MELD is therefore intended to produce an ensemble rather than simply generate a single structure. Relative populations can provide information about the stability of competing conformational states, provided that sampling is sufficiently converged. In practice, low-free-energy regions are commonly identified by clustering the sampled conformations. The original MELD work emphasized that individual potential-energy values should not be used directly as free-energy scores because they do not include the entropic contribution.
 
 A folded structure appearing once is consequently weaker evidence than a folded basin that is repeatedly visited and well populated. Analysis should focus on the distribution of conformations, transitions between states, and the stability of structural clusters rather than only on the single frame with the lowest energy or RMSD.
 
@@ -347,7 +347,7 @@ MELD can incorporate many forms of structural information, provided that the inf
 
 ### 4.1 Experimental and predicted information
 
-Potential sources of structural information include NMR-derived contacts and torsions, EPR/DEER distance distributions, chemical cross-links, mutagenesis-derived contacts, and predicted residue–residue interactions. A typical MELD calculation may combine the protein sequence, a predicted secondary structure, and externally supplied residue-contact or distance information [1].
+Potential sources of structural information include NMR-derived contacts and torsions, EPR/DEER distance distributions, chemical cross-links, mutagenesis-derived contacts, and predicted residue–residue interactions. A typical MELD calculation may combine the protein sequence, a predicted secondary structure, and externally supplied residue-contact or distance information.
 
 The conversion from an observation to a MELD restraint requires a scientific interpretation. For example:
 
@@ -377,7 +377,7 @@ The CPI restraints used in these tutorials are organized into three collections:
 
 #### Secondary-structure collection (`SS`)
 
-Secondary-structure predictions are translated into local restraints, commonly acting on overlapping sequence windows. These compound restraints may include both backbone torsions and local distances. The original MELD study used overlapping five-residue fragments and activated 75% of the resulting secondary-structure groups, reflecting the expectation that some predictions would be incorrect [1].
+Secondary-structure predictions are translated into local restraints, commonly acting on overlapping sequence windows. These compound restraints may include both backbone torsions and local distances. The original MELD study used overlapping five-residue fragments and activated 75% of the resulting secondary-structure groups, reflecting the expectation that some predictions would be incorrect.
 
 The exact active fraction is a modeling parameter and may differ between implementations or tutorials. Its purpose is not to weaken every secondary-structure restraint uniformly, but to allow MELD to leave out local assignments that are incompatible with the sampled conformation.
 
