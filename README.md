@@ -42,7 +42,7 @@ p(\mathbf{x}\mid D)
 p(D\mid \mathbf{x})\,p(\mathbf{x})
 ```
 
-where $\(p(\mathbf{x}\mid D)\)$ is the **posterior distribution**, $\(p(\mathbf{x})\)$ is the **prior**, and $\(p(D\mid\mathbf{x})\)$ is the **likelihood**. MELD samples from this posterior distribution rather than searching only for a single structure with the best score.
+where $\p(\mathbf{x}\mid D)\$ is the **posterior distribution**, $\(p(\mathbf{x})\)$ is the **prior**, and $\(p(D\mid\mathbf{x})\)$ is the **likelihood**. MELD samples from this posterior distribution rather than searching only for a single structure with the best score.
 
 ### The prior: the physical model
 
