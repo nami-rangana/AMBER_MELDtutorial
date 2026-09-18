@@ -1,0 +1,7 @@
+-O -rem 6 -remlog rem.log -i meld.mdin.001 -o meld.mdout.001 -c ../1_system_setup/min.rst -r meld.rst.001 -x meld.nc.001 -inf meld.mdinfo.001 -p ../1_system_setup/1uao_HMR.prmtop
+-O -rem 6 -remlog rem.log -i meld.mdin.002 -o meld.mdout.002 -c ../1_system_setup/min.rst -r meld.rst.002 -x meld.nc.002 -inf meld.mdinfo.002 -p ../1_system_setup/1uao_HMR.prmtop
+-O -rem 6 -remlog rem.log -i meld.mdin.003 -o meld.mdout.003 -c ../1_system_setup/min.rst -r meld.rst.003 -x meld.nc.003 -inf meld.mdinfo.003 -p ../1_system_setup/1uao_HMR.prmtop
+-O -rem 6 -remlog rem.log -i meld.mdin.004 -o meld.mdout.004 -c ../1_system_setup/min.rst -r meld.rst.004 -x meld.nc.004 -inf meld.mdinfo.004 -p ../1_system_setup/1uao_HMR.prmtop
+-O -rem 6 -remlog rem.log -i meld.mdin.005 -o meld.mdout.005 -c ../1_system_setup/min.rst -r meld.rst.005 -x meld.nc.005 -inf meld.mdinfo.005 -p ../1_system_setup/1uao_HMR.prmtop
+-O -rem 6 -remlog rem.log -i meld.mdin.006 -o meld.mdout.006 -c ../1_system_setup/min.rst -r meld.rst.006 -x meld.nc.006 -inf meld.mdinfo.006 -p ../1_system_setup/1uao_HMR.prmtop
+#

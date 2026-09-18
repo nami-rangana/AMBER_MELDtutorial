@@ -1,0 +1,5 @@
+parm 1uao.prmtop
+hmassrepartition
+outparm 1uao_HMR.prmtop
+quit
+

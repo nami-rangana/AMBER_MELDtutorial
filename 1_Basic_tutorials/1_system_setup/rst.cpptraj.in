@@ -1,0 +1,189 @@
+# rst.cpptraj.in -- hydrophobic-core DISANG for chignolin (1UAO)
+#
+#   cpptraj -i rst.cpptraj.in
+#
+# Every `rst ... out hy.disang` in this file APPENDS one &rst record, so the
+# order below is the order of the DISANG -- and that order is what hy.indxf's
+# `GROUPS 32 88 44` slices.  Do not reorder or insert lines.
+#
+# Flat-bottomed well: free to 5 A, quadratic to 7 A, linear beyond.
+# rk = 0.29876 kcal/mol/A^2 = 250 kJ/mol/nm^2 (the K in hy.indxf).
+#
+# Each mask must select exactly ONE atom: a mask matching two or more atoms
+# makes cpptraj write a center-of-mass group restraint (IGR1/IGR2) instead of
+# 1 atom-atom distance.
+
+parm 1uao.prmtop
+
+# ---- group 1: Tyr2 - Pro4 -- 8 x 4 = 32 restraints, DISANG 1-32 ----
+rst :2@CA :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 1
+rst :2@CA :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 2
+rst :2@CA :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 3
+rst :2@CA :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 4
+rst :2@CB :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 5
+rst :2@CB :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 6
+rst :2@CB :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 7
+rst :2@CB :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 8
+rst :2@CG :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 9
+rst :2@CG :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 10
+rst :2@CG :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 11
+rst :2@CG :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 12
+rst :2@CD1 :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 13
+rst :2@CD1 :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 14
+rst :2@CD1 :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 15
+rst :2@CD1 :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 16
+rst :2@CE1 :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 17
+rst :2@CE1 :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 18
+rst :2@CE1 :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 19
+rst :2@CE1 :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 20
+rst :2@CZ :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 21
+rst :2@CZ :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 22
+rst :2@CZ :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 23
+rst :2@CZ :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 24
+rst :2@CE2 :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 25
+rst :2@CE2 :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 26
+rst :2@CE2 :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 27
+rst :2@CE2 :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 28
+rst :2@CD2 :4@CD r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 29
+rst :2@CD2 :4@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 30
+rst :2@CD2 :4@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 31
+rst :2@CD2 :4@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 32
+
+# ---- group 2: Tyr2 - Trp9 -- 8 x 11 = 88 restraints, DISANG 33-120 ----
+rst :2@CA :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 33
+rst :2@CA :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 34
+rst :2@CA :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 35
+rst :2@CA :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 36
+rst :2@CA :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 37
+rst :2@CA :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 38
+rst :2@CA :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 39
+rst :2@CA :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 40
+rst :2@CA :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 41
+rst :2@CA :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 42
+rst :2@CA :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 43
+rst :2@CB :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 44
+rst :2@CB :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 45
+rst :2@CB :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 46
+rst :2@CB :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 47
+rst :2@CB :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 48
+rst :2@CB :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 49
+rst :2@CB :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 50
+rst :2@CB :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 51
+rst :2@CB :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 52
+rst :2@CB :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 53
+rst :2@CB :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 54
+rst :2@CG :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 55
+rst :2@CG :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 56
+rst :2@CG :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 57
+rst :2@CG :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 58
+rst :2@CG :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 59
+rst :2@CG :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 60
+rst :2@CG :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 61
+rst :2@CG :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 62
+rst :2@CG :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 63
+rst :2@CG :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 64
+rst :2@CG :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 65
+rst :2@CD1 :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 66
+rst :2@CD1 :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 67
+rst :2@CD1 :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 68
+rst :2@CD1 :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 69
+rst :2@CD1 :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 70
+rst :2@CD1 :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 71
+rst :2@CD1 :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 72
+rst :2@CD1 :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 73
+rst :2@CD1 :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 74
+rst :2@CD1 :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 75
+rst :2@CD1 :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 76
+rst :2@CE1 :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 77
+rst :2@CE1 :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 78
+rst :2@CE1 :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 79
+rst :2@CE1 :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 80
+rst :2@CE1 :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 81
+rst :2@CE1 :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 82
+rst :2@CE1 :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 83
+rst :2@CE1 :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 84
+rst :2@CE1 :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 85
+rst :2@CE1 :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 86
+rst :2@CE1 :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 87
+rst :2@CZ :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 88
+rst :2@CZ :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 89
+rst :2@CZ :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 90
+rst :2@CZ :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 91
+rst :2@CZ :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 92
+rst :2@CZ :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 93
+rst :2@CZ :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 94
+rst :2@CZ :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 95
+rst :2@CZ :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 96
+rst :2@CZ :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 97
+rst :2@CZ :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 98
+rst :2@CE2 :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 99
+rst :2@CE2 :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 100
+rst :2@CE2 :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 101
+rst :2@CE2 :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 102
+rst :2@CE2 :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 103
+rst :2@CE2 :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 104
+rst :2@CE2 :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 105
+rst :2@CE2 :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 106
+rst :2@CE2 :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 107
+rst :2@CE2 :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 108
+rst :2@CE2 :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 109
+rst :2@CD2 :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 110
+rst :2@CD2 :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 111
+rst :2@CD2 :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 112
+rst :2@CD2 :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 113
+rst :2@CD2 :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 114
+rst :2@CD2 :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 115
+rst :2@CD2 :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 116
+rst :2@CD2 :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 117
+rst :2@CD2 :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 118
+rst :2@CD2 :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 119
+rst :2@CD2 :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 120
+
+# ---- group 3: Pro4 - Trp9 -- 4 x 11 = 44 restraints, DISANG 121-164 ----
+rst :4@CD :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 121
+rst :4@CD :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 122
+rst :4@CD :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 123
+rst :4@CD :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 124
+rst :4@CD :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 125
+rst :4@CD :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 126
+rst :4@CD :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 127
+rst :4@CD :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 128
+rst :4@CD :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 129
+rst :4@CD :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 130
+rst :4@CD :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 131
+rst :4@CG :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 132
+rst :4@CG :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 133
+rst :4@CG :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 134
+rst :4@CG :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 135
+rst :4@CG :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 136
+rst :4@CG :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 137
+rst :4@CG :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 138
+rst :4@CG :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 139
+rst :4@CG :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 140
+rst :4@CG :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 141
+rst :4@CG :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 142
+rst :4@CB :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 143
+rst :4@CB :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 144
+rst :4@CB :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 145
+rst :4@CB :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 146
+rst :4@CB :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 147
+rst :4@CB :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 148
+rst :4@CB :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 149
+rst :4@CB :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 150
+rst :4@CB :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 151
+rst :4@CB :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 152
+rst :4@CB :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 153
+rst :4@CA :9@CA r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 154
+rst :4@CA :9@CB r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 155
+rst :4@CA :9@CG r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 156
+rst :4@CA :9@CD1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 157
+rst :4@CA :9@NE1 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 158
+rst :4@CA :9@CE2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 159
+rst :4@CA :9@CZ2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 160
+rst :4@CA :9@CH2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 161
+rst :4@CA :9@CZ3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 162
+rst :4@CA :9@CE3 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 163
+rst :4@CA :9@CD2 r1 0.000 r2 0.000 r3 5.000 r4 7.000 rk2 0.29876 rk3 0.29876 out hy.disang   # 164
+
+# 164 restraints total -> GROUPS 32 88 44
+quit

@@ -1,0 +1,24 @@
+# hy.indxf -- the hierarchy over hy.disang's 164 restraints.
+# Pair this with hy.disang.  Nothing but POSITION links the two: "restraint 33" below means the 33rd &rst record in that file.
+#
+#   topology  : ../1_system_setup/1uao_HMR.prmtop
+#   DISANG    : hy.disang        (164 &rst records, written by rst.cpptraj.in)
+#   index     : hy.indxf
+#   The two files describe the same restraints and must be used together.
+
+UNITS  meld           # K below is kJ/mol/nm^2; pmemd converts per restraint type
+INFO   on             # every replica writes meld.info.<rank>
+
+# ---- the ladder ----------------------------------------------------------
+TSCALE  0.0 0.8  300.0 450.0  "geometric"
+
+SCALER  prot   0.4 1.0 4.0        "nonlinear"
+RAMP    warmup 1 250 1e-3 1 4.0   "nonlinear_ramp"
+
+# ---- the hierarchy -------------------------------------------------------
+# hydrophobic core: 3 residue pairs, every apolar atom pair, keep one
+# 3 groups, 164 restraints
+#   group 1  Tyr2-Pro4   restraints   1 -  32
+#   group 2  Tyr2-Trp9   restraints  33 - 120
+#   group 3  Pro4-Trp9   restraints 121 - 164
+COLL HY  ACTIVE 2  KEEP 1  SCALER prot  RAMP warmup  K distance 250  GROUPS 32 88 44

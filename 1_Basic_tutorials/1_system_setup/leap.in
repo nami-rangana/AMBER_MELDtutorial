@@ -1,0 +1,5 @@
+source leaprc.protein.ff19SB
+set default PBradii mbondi3
+pro = sequence { GLY TYR ASP PRO GLU THR GLY THR TRP GLY }
+saveamberparm pro 1uao.prmtop 1uao.inpcrd
+quit

@@ -1,0 +1,14 @@
+chignolin -- MELD with a hydrophobic-core collection, 50 ns per replica
+ &cntrl
+   irest=0, ntx=1,
+   nstlim=5000, dt=0.004, numexchg=2500,    ! 20 ps blocks * 2500 = 50 ns
+   ntt=3, gamma_ln=1.0,                     ! Langevin thermostat (implicit solvent)
+   temp0=XXXXX, ig=RANDOM_NUMBER,           ! temp0 comes from TSCALE; ig is per replica
+   ntc=2, ntf=2,                            ! SHAKE on bonds to H -- required by dt=4 fs
+   ntb=0, igb=8, cut=999.0, rgbmax=999.0,   ! implicit solvent, mbondi3 radii
+   ntpr=5000, ntwx=5000, ntwr=5000,         ! one frame and one restart per exchange
+   nmropt=1, meld=1, indxf='hy.indxf',      ! MELD flags
+ /
+ &wt TYPE='END'
+ /
+DISANG=hy.disang
