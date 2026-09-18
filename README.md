@@ -34,13 +34,13 @@ MELD takes a different approach. It incorporates sparse, ambiguous, and uncertai
 
 MELD applies Bayesian inference to molecular simulation. Let \(\mathbf{x}\) represent the atomic coordinates of a protein and \(D\) the available structural data. Bayes’ rule gives
 
-$$
+```math
 p(\mathbf{x}\mid D)
 =
 \frac{p(D\mid \mathbf{x})\,p(\mathbf{x})}{p(D)}
 \propto
-p(D\mid \mathbf{x})\,p(\mathbf{x}),
-$$
+p(D\mid \mathbf{x})\,p(\mathbf{x})
+```
 
 where \(p(\mathbf{x}\mid D)\) is the **posterior distribution**, \(p(\mathbf{x})\) is the **prior**, and \(p(D\mid\mathbf{x})\) is the **likelihood**. MELD samples from this posterior distribution rather than searching only for a single structure with the best score [1].
 
