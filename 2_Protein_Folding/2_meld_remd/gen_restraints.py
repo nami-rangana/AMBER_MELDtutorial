@@ -182,11 +182,8 @@ SECTION_TITLES = {
 #  The alpha ladder.  These lines are copied into the .indxf verbatim, so they
 #  are plain MELD index syntax and anything the reader accepts can go here:
 #  several TSCALE records for a piecewise temperature ladder, plateau scalers,
-#  a ramp_switcher, and so on.  Only INFO, ADAPT, TSCALE, TEMPERATURE, SCALER
-#  and RAMP belong here -- the collections themselves are generated.
-#
-#  ADAPT is on if the record is present -- commenting it out is how it is
-#  turned off, and that is pmemd's own default.
+#  a ramp_switcher, and so on.  Only INFO, TSCALE, TEMPERATURE, SCALER and
+#  RAMP belong here -- the collections themselves are generated.
 #
 #  alpha = (run - 1)/(nrep - 1), from this replica's -ng group position.
 #  Force constant  = base_k x SCALER(alpha) x RAMP(exchange step).
@@ -198,11 +195,6 @@ SECTION_TITLES = {
 DEFAULT_LADDER = """\
 INFO    off                              # on -> each replica writes meld.info.<rank>
 
-# ADAPT is a switch by PRESENCE. Comment the next line out (or delete it) and the
-# alpha ladder never moves, which is pmemd's own default. There is no "ADAPT off":
-# the keyword always switches adaptation on and always wants all five numbers.
-# ADAPT   2.0 50 50 -1 0.02                # growth burn_in every stop_after min_acc -- [work in progress]
-
 TSCALE  0.0 0.4  300.0 450.0  "geometric"   # GeometricTemperatureScaler(0, 0.4, 300, 450)
 
 SCALER  ss                       "constant"       # SS holds full strength all the way up
@@ -210,7 +202,15 @@ SCALER  prot  0.4 1.0 4.0        "nonlinear"      # nonlinear, alpha_min 0.4, al
 RAMP    warmup 1 200 1e-3 1 4.0  "nonlinear_ramp" # restraints fade in over 200 exchange steps
 """
 
-LADDER_KEYWORDS = {"INFO", "ADAPT", "TSCALE", "TEMPERATURE", "SCALER", "RAMP"}
+LADDER_KEYWORDS = {"INFO", "TSCALE", "TEMPERATURE", "SCALER", "RAMP"}
+
+# Records pmemd used to accept and now rejects, with the reason it gives.  They
+# are caught here rather than in the ladder's generic "unknown keyword" message
+# so an older parameter file says what changed, not just what is allowed.
+RETIRED_KEYWORDS = {
+    "ADAPT": "acceptance adaptation has been removed; drop the record "
+             "(meld_wrapper.F90 aborts on it)",
+}
 
 
 # ==========================================================================
@@ -789,8 +789,6 @@ PARAM_LADDER_HEADER = """\
 #      RAMP   <name>  [params]  "constant_ramp|linear_ramp|nonlinear_ramp|
 #                                ramp_switcher"
 #      TSCALE a_min a_max t_min t_max  "constant|linear|geometric"
-#      ADAPT  growth burn_in every stop_after min_acc -- work in progress
-#             (present = adaptation ON, absent = OFF; there is no 'ADAPT off')
 #      INFO   on|off
 #
 #  Only those keywords belong here -- the collections themselves are built
@@ -858,6 +856,10 @@ def read_params(filename):
                 # looking exactly as it was written.
                 if line:
                     keyword = line.split()[0].upper()
+                    if keyword in RETIRED_KEYWORDS:
+                        raise ValueError(
+                            f"{where}: {keyword} is no longer supported -- "
+                            f"{RETIRED_KEYWORDS[keyword]}.")
                     if keyword not in LADDER_KEYWORDS:
                         raise ValueError(
                             f"{where}: {keyword} does not belong in the ladder block "
