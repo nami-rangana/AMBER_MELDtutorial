@@ -103,7 +103,7 @@ fi
 # Create the leap.in file
 cat > leap.in << EOF
 source leaprc.protein.ff19SB
-set default PBradii mbondi2
+set default PBradii mbondi3
 pro = sequence { $leap_seq }
 saveamberparm pro $prefix.prmtop $prefix.inpcrd
 quit
