@@ -311,7 +311,7 @@ Replica Exchange MELD (200 ns)
    ntt=3, gamma_ln=2.0,                     ! Langevin, 2.0/ps (implicit solvent)
    temp0=XXXXX, ig=RANDOM_NUMBER,
    ntc=2, ntf=2,                            ! SHAKE on H
-   ntb=0, igb=5,                            ! implicit solvent
+   ntb=0, igb=8,                            ! implicit solvent
    cut=999.0, rgbmax=999.0,
    ntpr=500, ntwx=500, ntwr=12500,
    nmropt=1, meld=1, indxf='restraints.indxf',   ! MELD flags
