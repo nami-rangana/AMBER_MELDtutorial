@@ -106,8 +106,6 @@ quadratic_cut           = 0.2         # distances turn linear this far past r3, 
 #      RAMP   <name>  [params]  "constant_ramp|linear_ramp|nonlinear_ramp|
 #                                ramp_switcher"
 #      TSCALE a_min a_max t_min t_max  "constant|linear|geometric"
-#      ADAPT  growth burn_in every stop_after min_acc
-#             (present = adaptation ON, absent = OFF; there is no 'ADAPT off')
 #      INFO   on|off
 #
 #  Only those keywords belong here -- the collections themselves are built
@@ -116,11 +114,6 @@ quadratic_cut           = 0.2         # distances turn linear this far past r3, 
 
 LADDER
   INFO    off                              # on -> each replica writes meld.info.<rank>
-
-  # ADAPT is a switch by PRESENCE. Comment the next line out (or delete it) and the
-  # alpha ladder never moves, which is pmemd's own default. There is no "ADAPT off":
-  # the keyword always switches adaptation on and always wants all five numbers.
-  ADAPT   2.0 50 50 -1 0.02                # growth burn_in every stop_after min_acc
 
   TSCALE  0.0 0.3  300.0 550.0  "geometric"   # GeometricTemperatureScaler(0, 0.3, 300, 450)
 
